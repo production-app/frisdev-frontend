@@ -13,7 +13,7 @@ const PopupChat = ({
   return (
     <div
       className={clsx(
-        "transition-all w-[300px] overflow-hidden h-full rounded-tl-md rounded-tr-md  z-30 bg-white absolute right-[4.5rem] bottom-0 border border-[#eee]",
+        "transition-all w-[300px] overflow-hidden h-[500px] rounded-tl-md rounded-tr-md  z-30 bg-white absolute right-[4.5rem] bottom-0 border border-[#eee]",
         isOpen ? "h-[500px]" : "h-0 hidden"
       )}
     >
