@@ -1,16 +1,18 @@
-import "@/styles/globals.css"
-import { Inter as FontSans } from "next/font/google"
+import "@/styles/globals.css";
+import { Inter as FontSans } from "next/font/google";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
+import { MantineProvider } from "@mantine/core";
+import "@mantine/core/styles.css";
 
 type RootLayoutProps = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
-})
+});
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
@@ -22,8 +24,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           fontSans.variable
         )}
       >
-        {children}
+        <MantineProvider>{children}</MantineProvider>
       </body>
     </html>
-  )
+  );
 }

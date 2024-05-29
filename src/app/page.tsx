@@ -10,7 +10,7 @@ export default function Home() {
   const defaultCollapsed = collapsed ? JSON.parse(collapsed.value) : undefined;
 
   return (
-    <main className="h-[92vh] ">
+    <main className="h-[92vh] relative">
       <div className="h-full hidden lg:block">
         <Main
           defaultLayout={defaultLayout}
