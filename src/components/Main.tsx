@@ -36,7 +36,7 @@ interface MailProps {
 }
 
 export default function Main({
-  defaultLayout = [270, 440, 440, 655],
+  defaultLayout = [270, 440, 440, 655, 440],
   defaultCollapsed = false,
   navCollapsedSize,
 }: MailProps) {
@@ -203,16 +203,18 @@ export default function Main({
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel minSize={20} defaultSize={defaultLayout[2]}>
+        <ResizablePanel minSize={20} defaultSize={defaultLayout[3]}>
           <div className=" flex items-center justify-start px-3 h-[52px]">
             <h1 className="font-bold text-gray-400">EDAS</h1>
           </div>
           <Separator />
         </ResizablePanel>
         <ResizableHandle />
-        <ResizablePanel minSize={5} maxSize={5} defaultSize={defaultLayout[2]}>
+        <ResizablePanel minSize={5} maxSize={5} defaultSize={defaultLayout[4]}>
           <div className=" flex items-center justify-start px-3 h-[52px]">
-            <p className="text-sm items-center">Status</p>
+            <p className="text-sm items-center font-bold text-gray-400">
+              Status
+            </p>
           </div>
           <div className="flex items-center justify-start m-4">
             <Stepper
@@ -253,7 +255,7 @@ export default function Main({
       </DrawerClose>
     </DrawerFooter>
   </DrawerContent>
-</Drawer> */}
+</Drawer>  */}
     </TooltipProvider>
   );
 }
