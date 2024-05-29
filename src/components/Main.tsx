@@ -9,6 +9,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { Stepper } from "@mantine/core";
 import {
   AlertCircle,
   Archive,
@@ -23,7 +24,10 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
+import FloatingControls from "./FloatingControls";
 import Searchbar from "./Searchbar";
+
+import PopupChat from "./Popup Chat";
 
 interface MailProps {
   defaultLayout?: number[] | undefined;
@@ -38,6 +42,10 @@ export default function Main({
 }: MailProps) {
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
 
+  const [active, setActive] = React.useState(1);
+
+  const [openChat, setOpenChat] = React.useState(false);
+
   return (
     <TooltipProvider delayDuration={0}>
       <ResizablePanelGroup
@@ -47,8 +55,7 @@ export default function Main({
             sizes
           )}`;
         }}
-        className="h-full items-stretch "
-        //style={{ height: "" }}
+        className="h-full items-stretch"
       >
         <ResizablePanel
           defaultSize={defaultLayout[0]}
@@ -169,7 +176,7 @@ export default function Main({
           maxSize={35}
         >
           <div className=" flex items-center justify-start px-3 h-[52px]">
-            <h1>Workspace</h1>
+            <h1 className="font-bold text-gray-400">Workspace</h1>
           </div>
           <Separator />
           <div className="flex  items-center justify-center h-full w-full">
@@ -177,11 +184,10 @@ export default function Main({
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={defaultLayout[2]}>
+        <ResizablePanel minSize={25} defaultSize={defaultLayout[2]}>
           <div className=" flex items-center justify-start px-3 h-[52px]">
             <Searchbar />
           </div>
-          <Separator />
           <div className="flex  items-center justify-center h-full w-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -197,17 +203,57 @@ export default function Main({
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel
-          minSize={20}
-          maxSize={20}
-          defaultSize={defaultLayout[2]}
-        >
+        <ResizablePanel minSize={20} defaultSize={defaultLayout[2]}>
           <div className=" flex items-center justify-start px-3 h-[52px]">
-            Third Section
+            <h1 className="font-bold text-gray-400">EDAS</h1>
           </div>
           <Separator />
         </ResizablePanel>
+        <ResizableHandle />
+        <ResizablePanel minSize={5} maxSize={5} defaultSize={defaultLayout[2]}>
+          <div className=" flex items-center justify-start px-3 h-[52px]">
+            <p className="text-sm items-center">Status</p>
+          </div>
+          <div className="flex items-center justify-start m-4">
+            <Stepper
+              active={active}
+              onStepClick={setActive}
+              orientation="vertical"
+              // color="#C79C30"
+              color="#0c4a6e"
+              radius="md"
+              size="xs"
+              iconSize={30}
+            >
+              <Stepper.Step />
+              <Stepper.Step />
+              <Stepper.Step />
+            </Stepper>
+          </div>
+        </ResizablePanel>
       </ResizablePanelGroup>
+      <FloatingControls chatFn={() => setOpenChat(!openChat)} />
+
+      {/** Chat Drawer */}
+      <PopupChat
+        isOpen={openChat}
+        onClose={() => setOpenChat(false)}
+      ></PopupChat>
+      {/**<Drawer>
+  <DrawerTrigger>Open</DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+      <DrawerDescription>This action cannot be undone.</DrawerDescription>
+    </DrawerHeader>
+    <DrawerFooter>
+      <Button>Submit</Button>
+      <DrawerClose>
+        <Button variant="outline">Cancel</Button>
+      </DrawerClose>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer> */}
     </TooltipProvider>
   );
 }
