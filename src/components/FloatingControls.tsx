@@ -1,4 +1,36 @@
-const FloatingControls = ({ chatFn }: { chatFn?: () => void }) => {
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Bell, ImageIcon } from "lucide-react";
+import { ReactNode } from "react";
+
+const TooltipWrapper = ({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) => {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger>{children}</TooltipTrigger>
+        <TooltipContent>{label}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+};
+
+const FloatingControls = ({
+  chatFn,
+  updateFn,
+}: {
+  chatFn?: () => void;
+  updateFn?: () => void;
+}) => {
   return (
     <div className="group z-50 fixed bottom-5 right-9 p-2  flex items-end justify-end w-24 h-24 ">
       <div className="text-white shadow-xl flex items-center justify-center p-3 rounded-full bg-sky-900 z-50 absolute  ">
@@ -22,37 +54,18 @@ const FloatingControls = ({ chatFn }: { chatFn?: () => void }) => {
           />
         </svg>
       </div>
-      <div className="absolute rounded-full transition-all duration-[0.2s] ease-out scale-y-0 group-hover:scale-y-100 group-hover:-translate-x-16   flex  p-2 hover:p-3 bg-yellow-600 hover:bg-yellow-500 scale-100  text-white">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          className="w-5 h-5"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M21 10.5h.375c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125H21M3.75 18h15A2.25 2.25 0 0021 15.75v-6a2.25 2.25 0 00-2.25-2.25h-15A2.25 2.25 0 001.5 9.75v6A2.25 2.25 0 003.75 18z"
-          />
-        </svg>
+      <div
+        onClick={updateFn}
+        className="absolute rounded-full transition-all duration-[0.2s] ease-out scale-y-0 group-hover:scale-y-100 group-hover:-translate-x-16   flex  p-2 hover:p-3 bg-yellow-600 hover:bg-yellow-500 scale-100  text-white"
+      >
+        <TooltipWrapper label="Updates">
+          <Bell />
+        </TooltipWrapper>
       </div>
       <div className="absolute rounded-full transition-all duration-[0.2s] ease-out scale-x-0 group-hover:scale-x-100 group-hover:-translate-y-16  flex  p-2 hover:p-3 bg-yellow-600 hover:bg-yellow-500 scale-100  text-white">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          className="w-5 h-5"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M9.143 17.082a24.248 24.248 0 003.844.148m-3.844-.148a23.856 23.856 0 01-5.455-1.31 8.964 8.964 0 002.3-5.542m3.155 6.852a3 3 0 005.667 1.97m1.965-2.277L21 21m-4.225-4.225a23.81 23.81 0 003.536-1.003A8.967 8.967 0 0118 9.75V9A6 6 0 006.53 6.53m10.245 10.245L6.53 6.53M3 3l3.53 3.53"
-          />
-        </svg>
+        <TooltipWrapper label="View Image">
+          <ImageIcon />
+        </TooltipWrapper>
       </div>
 
       {/** Chat */}
@@ -60,40 +73,42 @@ const FloatingControls = ({ chatFn }: { chatFn?: () => void }) => {
         className="absolute rounded-full transition-all duration-[0.2s] ease-out scale-x-0 group-hover:scale-x-100 group-hover:-translate-y-14 group-hover:-translate-x-14   flex  p-2 hover:p-3 bg-yellow-600 hover:bg-yellow-500 scale-100 text-white"
         onClick={chatFn}
       >
-        <svg
-          fill="#FFFFFF"
-          version="1.1"
-          id="Layer_1"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
-          viewBox="0 0 512 512"
-          xmlSpace="preserve"
-          stroke="#FFFFFF"
-          className="w-5 h-5"
-        >
-          <g id="SVGRepo_bgCarrier" stroke-width="0" />
+        <TooltipWrapper label="Chat">
+          <svg
+            fill="#FFFFFF"
+            version="1.1"
+            id="Layer_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 512 512"
+            xmlSpace="preserve"
+            stroke="#FFFFFF"
+            className="w-5 h-5"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0" />
 
-          <g
-            id="SVGRepo_tracerCarrier"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
 
-          <g id="SVGRepo_iconCarrier">
-            {" "}
-            <g>
+            <g id="SVGRepo_iconCarrier">
               {" "}
               <g>
                 {" "}
                 <g>
                   {" "}
-                  <path d="M362.667,288V96c0-29.397-23.936-53.333-53.333-53.333h-256C23.936,42.667,0,66.603,0,96v320 c0,4.309,2.603,8.213,6.592,9.856c1.323,0.555,2.709,0.811,4.075,0.811c2.773,0,5.504-1.088,7.552-3.115l82.219-82.219h208.917 C338.731,341.333,362.667,317.397,362.667,288z" />{" "}
-                  <path d="M458.667,85.333h-64C388.779,85.333,384,90.112,384,96v192c0,41.173-33.493,74.667-74.667,74.667 c-5.888,0-10.667,4.779-10.667,10.667c0,5.888,4.779,10.667,10.667,10.667h102.251l82.219,82.219 c2.027,2.027,4.757,3.115,7.531,3.115c1.365,0,2.752-0.256,4.075-0.811c3.989-1.643,6.592-5.547,6.592-9.856v-320 C512,109.269,488.064,85.333,458.667,85.333z" />{" "}
+                  <g>
+                    {" "}
+                    <path d="M362.667,288V96c0-29.397-23.936-53.333-53.333-53.333h-256C23.936,42.667,0,66.603,0,96v320 c0,4.309,2.603,8.213,6.592,9.856c1.323,0.555,2.709,0.811,4.075,0.811c2.773,0,5.504-1.088,7.552-3.115l82.219-82.219h208.917 C338.731,341.333,362.667,317.397,362.667,288z" />{" "}
+                    <path d="M458.667,85.333h-64C388.779,85.333,384,90.112,384,96v192c0,41.173-33.493,74.667-74.667,74.667 c-5.888,0-10.667,4.779-10.667,10.667c0,5.888,4.779,10.667,10.667,10.667h102.251l82.219,82.219 c2.027,2.027,4.757,3.115,7.531,3.115c1.365,0,2.752-0.256,4.075-0.811c3.989-1.643,6.592-5.547,6.592-9.856v-320 C512,109.269,488.064,85.333,458.667,85.333z" />{" "}
+                  </g>{" "}
                 </g>{" "}
               </g>{" "}
-            </g>{" "}
-          </g>
-        </svg>
+            </g>
+          </svg>
+        </TooltipWrapper>
       </div>
     </div>
   );

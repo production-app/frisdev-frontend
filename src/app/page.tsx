@@ -10,8 +10,8 @@ export default function Home() {
   const defaultCollapsed = collapsed ? JSON.parse(collapsed.value) : undefined;
 
   return (
-    <main className="h-[92vh] relative">
-      <div className="h-full hidden lg:block">
+    <main className="h-screen w-full ">
+      <div className="hidden lg:block h-full w-full relative">
         <Main
           defaultLayout={defaultLayout}
           defaultCollapsed={defaultCollapsed}
@@ -19,7 +19,7 @@ export default function Home() {
         />
         <Footer />
       </div>
-      <div className="w-full h-full absolute inset-0 flex md:hidden items-center justify-center">
+      <div className="w-full h-full absolute inset-0 flex lg:hidden items-center justify-center">
         <h1>Content is not available on small screens</h1>
       </div>
     </main>
