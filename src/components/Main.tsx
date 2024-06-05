@@ -22,6 +22,7 @@ import {
   Users2,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import * as React from "react";
 import Searchbar from "./Searchbar";
 
@@ -79,13 +80,15 @@ export default function Main({
               isCollapsed ? "h-[52px] justify-center" : "px-2"
             )}
           >
-            <Image
-              className="transition-all"
-              src={isCollapsed ? "/logo_res.png" : "/logo.png"}
-              alt="firstregister_logo"
-              width={120}
-              height={120}
-            />
+            <Link href={"/"}>
+              <Image
+                className="transition-all"
+                src={isCollapsed ? "/logo_res.png" : "/logo.png"}
+                alt="firstregister_logo"
+                width={120}
+                height={120}
+              />
+            </Link>
           </div>
           <Separator />
           <Nav
