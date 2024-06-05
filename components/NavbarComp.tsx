@@ -75,9 +75,9 @@ const NavbarComp = () => {
     <TooltipProvider>
       <aside
         data-collapsed={isCollapsed}
-        className="group transition-all flex flex-col gap-4 border-r py-2 data-[collapsed=true]:py-2"
+        className="group transition-all flex flex-col gap-4  border-r py-2 data-[collapsed=true]:py-2"
       >
-        <nav className="relative transition-all grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
+        <nav className="relative transition-all grid gap-1 px-2  group-[[data-collapsed=false]]:w-52 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
             className="absolute -right-3 top-2 bg-sky-900 p-2 rounded-full text-white"
@@ -86,11 +86,11 @@ const NavbarComp = () => {
           </button>
           <Link className="pt-0 pb-5" href={"/"}>
             <Image
-              className="transition-all "
+              className="transition-transform"
               src={isCollapsed ? "/logo_res.png" : "/logo.png"}
               alt="firstregister_logo"
               width={isCollapsed ? 40 : 120}
-              height={isCollapsed ? 40 : 120}
+              height={isCollapsed ? 40 : 150}
             />
           </Link>
           {links.map((link, index) =>
@@ -134,7 +134,7 @@ const NavbarComp = () => {
                     ? "bg-sky-900 text-white dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white"
                     : "text-black",
 
-                  "transition-all group-[[data-collapsed=false]]:w-48 justify-start"
+                  " justify-start"
                 )}
               >
                 <link.icon className="mr-2 h-4 w-4" />
