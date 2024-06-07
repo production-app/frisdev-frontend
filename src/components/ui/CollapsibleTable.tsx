@@ -14,9 +14,14 @@ export default function LinksVisitors({ linkId }: { linkId: number }) {
         ? visitors.map((visitor) => {
             return (
               <TableRow key={visitor.id}>
-                <TableCell>{visitor.name}</TableCell>
-                <TableCell>{visitor.totalDuration}</TableCell>
-                <TableCell></TableCell>
+                <TableCell className="py-5">
+                  Document Type: {visitor.name}
+                </TableCell>
+                <TableCell className="py-5">
+                  {" "}
+                  Duration: {visitor.totalDuration}
+                </TableCell>
+                <TableCell className="py-5"></TableCell>
               </TableRow>
             );
           })
