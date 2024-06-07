@@ -1,5 +1,5 @@
-import Footer from "@/components/Footer";
-import Main from "@/components/Main";
+import Footer from "@/components/workspace/Footer";
+import Main from "@/components/workspace/Main";
 import { cookies } from "next/headers";
 
 export default function Home() {
