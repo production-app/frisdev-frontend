@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import {
   Archive,
   ArchiveX,
+  BanIcon,
   ExpandIcon,
   File,
   Inbox,
@@ -76,16 +77,15 @@ const NavbarComp = () => {
     <TooltipProvider>
       <aside
         data-collapsed={isCollapsed}
-        className="group transition-all flex flex-col gap-4  border-r py-2 data-[collapsed=true]:py-2"
+        className="group relative transition-all flex flex-col gap-4  border-r py-2 data-[collapsed=true]:py-2"
       >
-        <p>fsfdfd</p>
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="absolute -right-3 top-2 bg-sky-900 p-2 rounded-full text-white"
+          className="absolute -right-3 top-6 bg-sky-900 p-2 rounded-full text-white"
         >
           <ExpandIcon className="h-2 w-2 " />
         </button>
-        <Link className="pt-0 pb-5" href={"/"}>
+        <Link className="px-2" href={"/"}>
           <Image
             className="transition-transform"
             src={isCollapsed ? "/logo_res.png" : "/logo.png"}
@@ -95,7 +95,7 @@ const NavbarComp = () => {
           />
         </Link>
         <Separator />
-        <nav className="relative transition-all grid gap-1 px-2  group-[[data-collapsed=false]]:w-52 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
+        <nav className="relative transition-all grid gap-1 px-2  group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
           {links.map((link, index) =>
             isCollapsed ? (
               <Tooltip key={index} delayDuration={0}>
@@ -109,7 +109,7 @@ const NavbarComp = () => {
                       }),
                       "h-9 w-9 transition-all",
                       link.variant === "default"
-                        ? "bg-sky-900 dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
+                        ? "bg-g-sky-900 rk:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
                         : "text-black"
                     )}
                   >
@@ -134,10 +134,10 @@ const NavbarComp = () => {
                 className={cn(
                   buttonVariants({ variant: link.variant, size: "sm" }),
                   link.variant === "default"
-                    ? "bg-sky-900 text-white dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white"
+                    ? "bg-sky-900  text-white dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white"
                     : "text-black",
 
-                  " justify-start"
+                  " justify-start group-[[data-collapsed=false]]:w-52 transition-all"
                 )}
               >
                 <link.icon className="mr-2 h-4 w-4" />
@@ -145,7 +145,7 @@ const NavbarComp = () => {
                 {link.label && (
                   <span
                     className={cn(
-                      "ml-auto bg-[#c2a14b] flex px-2 items-center justify-center w-6 h-6 rounded-full text-white text-[10px] "
+                      "ml-auto bg-[#c2a14b] border flex px-2 items-center justify-center w-6 h-6 rounded-full text-white text-[10px] "
                     )}
                   >
                     {link.label}
@@ -155,6 +155,15 @@ const NavbarComp = () => {
             )
           )}
         </nav>
+        <Separator />
+
+        <div className="mt-auto p-2">
+          <div className="relative h-32 w-full rounded-md bg-sky-900 ">
+            <div className="bg-[#c2a14b] text-white flex items-center justify-center h-8 w-8 rounded-full absolute -top-5 inset-0 mx-auto">
+              <BanIcon />
+            </div>
+          </div>
+        </div>
       </aside>
     </TooltipProvider>
   );
