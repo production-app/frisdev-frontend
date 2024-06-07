@@ -5,7 +5,7 @@ type HomeLayoutProps = {
 };
 export default function HomeLayout({ children }: HomeLayoutProps) {
   return (
-    <div className="w-full flex">
+    <div className="h-full w-full flex overflow-y-hidden">
       <NavbarComp />
       {children}
     </div>
