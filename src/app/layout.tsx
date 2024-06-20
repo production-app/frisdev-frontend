@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import { Inter as FontSans } from "next/font/google";
 
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { cn } from "@/lib/utils";
 import "@mantine/core/styles.css";
 
@@ -15,7 +16,7 @@ const fontSans = FontSans({
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" suppressHydrationWarning data-theme="light">
+    <html lang="en" suppressHydrationWarning>
       <head />
       <body
         className={cn(
@@ -23,7 +24,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
           fontSans.variable
         )}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
