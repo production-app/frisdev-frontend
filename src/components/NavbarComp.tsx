@@ -10,7 +10,6 @@ import { cn } from "@/lib/utils";
 import {
   Archive,
   ArchiveX,
-  BanIcon,
   ExpandIcon,
   File,
   Inbox,
@@ -81,7 +80,7 @@ const NavbarComp = () => {
       >
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="absolute -right-3 top-6 bg-sky-900 p-2 rounded-full text-white"
+          className="absolute -right-3 top-6 bg-sky-900 p-2 z-30 rounded-full text-white"
         >
           <ExpandIcon className="h-2 w-2 " />
         </button>
@@ -135,7 +134,7 @@ const NavbarComp = () => {
                   buttonVariants({ variant: link.variant, size: "sm" }),
                   link.variant === "default"
                     ? "bg-sky-900  text-white dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white"
-                    : "text-black",
+                    : "text-muted-foreground",
 
                   " justify-start group-[[data-collapsed=false]]:w-52 transition-all"
                 )}
@@ -145,7 +144,7 @@ const NavbarComp = () => {
                 {link.label && (
                   <span
                     className={cn(
-                      "ml-auto bg-[#c2a14b] border flex px-2 items-center justify-center w-6 h-6 rounded-full text-white text-[10px] "
+                      "ml-auto bg-[#c2a14b] flex px-2 items-center justify-center w-6 h-6 rounded-full text-white text-[10px] "
                     )}
                   >
                     {link.label}
@@ -157,13 +156,13 @@ const NavbarComp = () => {
         </nav>
         <Separator />
 
-        <div className="mt-auto p-2">
+        {/** <div className="mt-auto p-2">
           <div className="relative h-32 w-full rounded-md bg-sky-900 ">
             <div className="bg-[#c2a14b] text-white flex items-center justify-center h-8 w-8 rounded-full absolute -top-5 inset-0 mx-auto">
               <BanIcon />
             </div>
           </div>
-        </div>
+        </div> */}
       </aside>
     </TooltipProvider>
   );
