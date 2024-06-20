@@ -20,6 +20,7 @@ const config = {
     },
     extend: {
       colors: {
+        fr_secondary: "#bd9b3a",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -5,8 +5,17 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "avatar.iran.liara.run",
-        port: "",
         pathname: "/public/**",
+      },
+      {
+        protocol: "https",
+        hostname: "c2.staticflickr.com",
+        pathname: "/9/**",
+      },
+      {
+        protocol: "https",
+        hostname: "/timellenberger.com",
+        pathname: "/static/**",
       },
     ],
   },
