@@ -1,6 +1,6 @@
 import CommandWrapper from "@/components/CommandWrapper";
 import Thumbnail from "@/components/Thumbnail/Thumbnail";
-import ScanTable from "@/components/page_ui/Scanpage";
+import ScanTable from "@/components/page_ui/scan/Scanpage";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -110,7 +110,7 @@ const page = ({ params }: { params: { cntrl_id: string } }) => {
         {/** main section */}
         <Card className="px-4 w-full py-4 flex-1 border-dashed border">
           <CardHeader className="flex justify-center w-full">
-            <CardTitle>DOCUMENT / SCANNING </CardTitle>
+            <CardTitle className="text-base">DOCUMENT / SCANNING </CardTitle>
             <CardDescription>Submit materials for processing</CardDescription>
           </CardHeader>
           <CardContent>
