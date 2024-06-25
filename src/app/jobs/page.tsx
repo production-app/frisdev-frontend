@@ -1,4 +1,4 @@
-import { Dashboard } from "@/components/page_ui/sampleTable";
+import { TableViewDocumentLog } from "@/components/page_ui/sampleTable";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -92,7 +92,7 @@ export default function Home() {
             <CardDescription>Document logs</CardDescription>
           </CardHeader>
           <CardContent>
-            <Dashboard />
+            <TableViewDocumentLog />
           </CardContent>
         </Card>
       </div>
