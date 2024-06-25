@@ -36,113 +36,85 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import LinksVisitors from "../ui/CollapsibleTable";
+import { DataTable } from "../table_ui/data-table";
+import { Row, columns } from "../table_ui/columns";
+import { DatePickerWithRange } from "./DatePickerComponent";
+import { useDisclosure } from "@mantine/hooks";
+import { Modal } from "@mantine/core";
+import Draggable, { DraggableCore } from "react-draggable";
+import RadioButtonComponent from "./RadioButtonComponent";
 
-const links = [
-  { id: 1, name: "Biodun", viewCount: 3 },
-  { id: 2, name: "Tope", viewCount: 4 },
+const data: Row[] = [
+  {
+    id: 1,
+    batchNo: "CN2406081",
+    attachmentCount: "3",
+    status: "New",
+    sourceOfDoc: "Online",
+    nameOnDocument: "Joe Smith",
+    jobTypes: "Mutual Fund",
+    actionDepartment: "Correspondence",
+    // collapsibleContent: "Hi from collapsible content and row 1",
+  },
+  {
+    id: 2,
+    batchNo: "CN2406082",
+    attachmentCount: "2",
+    status: "Transfered",
+    sourceOfDoc: "Walk-in",
+    nameOnDocument: "Emeka Eze",
+    jobTypes: "eDividends",
+    actionDepartment: "Certificate",
+    // collapsibleContent: "Hi from collapsible content and row 1",
+  },
+  {
+    id: 3,
+    batchNo: "CN2406083",
+    attachmentCount: "0",
+    status: "New",
+    jobTypes: "Certificate",
+    sourceOfDoc: "email",
+    nameOnDocument: "Musa  Ali",
+    actionDepartment: "Mutual Fund",
+    // collapsibleContent: "Hi from collapsible content and row 1",
+  },
 ];
 
-export function Dashboard() {
-  const [mounted, setMounted] = useState(false);
+export function TableViewDocumentLog() {
+  const [isMounted, setIsMounted] = useState(false);
+  const [opened, { open, close }] = useDisclosure(false);
 
   useEffect(() => {
-    setMounted(true);
+    setIsMounted(true);
   }, []);
+
+  if (!isMounted) {
+    return null;
+  }
   return (
     <TooltipProvider>
-      <div className="flex w-full flex-col ">
-        {/* <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
-          <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
-            <Link
-              href="#"
-              className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
-            >
-              <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
-              <span className="sr-only">Acme Inc</span>
-            </Link>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Home className="h-5 w-5" />
-                  <span className="sr-only">Dashboard</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Dashboard</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <ShoppingCart className="h-5 w-5" />
-                  <span className="sr-only">Orders</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Orders</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Package className="h-5 w-5" />
-                  <span className="sr-only">Products</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Products</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Users2 className="h-5 w-5" />
-                  <span className="sr-only">Customers</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Customers</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <LineChart className="h-5 w-5" />
-                  <span className="sr-only">Analytics</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Analytics</TooltipContent>
-            </Tooltip>
-          </nav>
-          <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Settings className="h-5 w-5" />
-                  <span className="sr-only">Settings</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Settings</TooltipContent>
-            </Tooltip>
-          </nav>
-        </aside> */}
+      <Modal
+        opened={opened}
+        radius="md"
+        size="auto"
+        onClose={close}
+        overlayProps={{
+          backgroundOpacity: 0.6,
+          blur: 3,
+        }}
+      >
+        <div>
+          <RadioButtonComponent />
+        </div>
+      </Modal>
 
+      <div className="flex w-full flex-col ">
         <Tabs defaultValue="all">
           <div className="flex items-center">
             <TabsList className="border">
               <TabsTrigger value="all">All</TabsTrigger>
-              <TabsTrigger value="active">Active</TabsTrigger>
-              <TabsTrigger value="draft">Draft</TabsTrigger>
+              <TabsTrigger value="active">Pending</TabsTrigger>
+              <TabsTrigger value="draft">Tranfered</TabsTrigger>
               <TabsTrigger value="archived" className="hidden sm:flex">
                 Archived
               </TabsTrigger>
@@ -167,20 +139,27 @@ export function Dashboard() {
                   <DropdownMenuCheckboxItem>Archived</DropdownMenuCheckboxItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Button size="sm" variant="outline" className="h-8 gap-1">
+
+              {/* <DatePickerWithRange /> */}
+              <Button
+                size="sm"
+                variant="outline"
+                className="h-8 gap-1"
+                //  onClick={open}
+              >
                 <File className="h-3.5 w-3.5" />
                 <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
                   Export
                 </span>
               </Button>
-              <Link href={"/jobs/new"}>
-                <Button size="sm" className="h-8 gap-1 bg-sky-900">
-                  <PlusCircle className="h-3.5 w-3.5" />
-                  <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                    Add Job(s)
-                  </span>
-                </Button>
-              </Link>
+              {/* <Link href={"/jobs/new"}> */}
+              <Button size="sm" className="h-8 gap-1 bg-sky-900" onClick={open}>
+                <PlusCircle className="h-3.5 w-3.5" />
+                <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                  Add Job(s)
+                </span>
+              </Button>
+              {/* </Link> */}
             </div>
           </div>
           <TabsContent value="all">
@@ -192,47 +171,13 @@ export function Dashboard() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="rounded-md border">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead className="font-medium">Name</TableHead>
-                        <TableHead className="font-medium">Link</TableHead>
-                        <TableHead className="font-medium">Views</TableHead>
-                      </TableRow>
-                    </TableHeader>
-
-                    <TableBody>
-                      {links
-                        ? links.map((link) => (
-                            <Collapsible key={link.id} asChild>
-                              <>
-                                <TableRow>
-                                  <TableCell>{link.name}</TableCell>
-                                  <TableCell>{link.id}</TableCell>
-                                  <TableCell className="flex items-center justify-start">
-                                    {link.viewCount}
-                                    <CollapsibleTrigger>
-                                      <ChevronDown className="ml-2 h-4 w-4 text-stone-500" />
-                                    </CollapsibleTrigger>
-                                  </TableCell>
-                                </TableRow>
-                                {mounted && (
-                                  <CollapsibleContent asChild>
-                                    <LinksVisitors linkId={link.id} />
-                                  </CollapsibleContent>
-                                )}
-                              </>
-                            </Collapsible>
-                          ))
-                        : null}
-                    </TableBody>
-                  </Table>
-                </div>
+                {/* <div className="rounded-md border"> */}
+                <DataTable data={data} columns={columns} />
+                {/* </div> */}
               </CardContent>
               <CardFooter>
                 <div className="text-xs text-muted-foreground">
-                  Showing <strong>1-10</strong> of <strong>32</strong> products
+                  Showing <strong>1-10</strong> of <strong>32</strong> Records
                 </div>
               </CardFooter>
             </Card>
