@@ -210,7 +210,7 @@ const page = () => {
               </div>
             </div>
           </CustomCard>
-          <CustomCard className="p-6 col-span-1 lg:col-span-2 shadow-none h-fit min-w-[300px]">
+          <CustomCard className="p-6 col-span-1 lg:col-span-2 shadow-none min-w-[300px]">
             <div className="flex flex-col h-full relative">
               <div className="flex">
                 <div className="flex items-center gap-2">Updates </div>
