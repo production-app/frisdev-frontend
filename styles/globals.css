@@ -73,4 +73,26 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .cl-internal-4x6jej {
+    @apply display: none !important;
+  }
+
+  .cl-footer {
+    @apply display: none !important;
+  }
+}
+
+@layer components {
+  .cl-internal-4x6jej {
+    display: none !important;
+  }
+
+  .cl-footer {
+    display: none !important;
+  }
+
+  .cl-internal-11ttlho {
+    display: none !important;
+  }
 }

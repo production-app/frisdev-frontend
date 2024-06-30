@@ -26,12 +26,13 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import CommandWrapper from "../../components/CommandWrapper";
+import { UserButton } from "@clerk/nextjs";
 
 export default function Home() {
   return (
     <main className="flex flex-col pb-5 bg-muted/40 flex-1 items-start gap-2 p-4 sm:px-6 sm:py-0 overflow-y-auto">
       {/** top section */}
-      <div className="w-full  flex py-4 ">
+      <div className="w-full  flex py-4 gap-2 ">
         {/** breadcrumb */}
         <Breadcrumb className="hidden md:flex">
           <BreadcrumbList>
@@ -57,7 +58,7 @@ export default function Home() {
         <CommandWrapper />
 
         {/** user dropdown */}
-        <DropdownMenu>
+        {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
@@ -81,7 +82,9 @@ export default function Home() {
             <DropdownMenuSeparator />
             <DropdownMenuItem>Logout</DropdownMenuItem>
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> */}
+
+        <UserButton />
       </div>
 
       {/** main section */}

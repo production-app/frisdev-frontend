@@ -1,7 +1,20 @@
+import CommandWrapper from "@/components/CommandWrapper";
 import CustomCard from "@/components/custom-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
@@ -16,6 +29,9 @@ import {
   Timer,
 } from "lucide-react";
 import Link from "next/link";
+import { currentUser } from "@clerk/nextjs/server";
+import { UserButton } from "@clerk/nextjs";
+import Home from "@/components/page_ui/demo/Usesession";
 
 const SimpleCard = ({
   title,
@@ -49,12 +65,28 @@ const SimpleCard = ({
   );
 };
 
-const page = () => {
+const page = async () => {
+  const user = await currentUser();
+
+  if (!user) return <div>Not Logged In</div>;
+
+  //console.log(user);
+
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
   return (
-    <div className="flex flex-col pb-5 bg-muted/40 flex-1 items-start sm:py-0 overflow-y-auto">
+    <div className="flex flex-col pb-5 bg-muted/40 flex-1 items-start sm:py-0  overflow-y-auto">
       {/** top section */}
-      {/**<header className="w-full  flex py-4 px-6">
-        {/** breadcrumb }
+      <header className="w-full  flex py-4 px-6 gap-3">
+        {/* {/** breadcrumb } */}
         <Breadcrumb className="hidden md:flex">
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -75,42 +107,18 @@ const page = () => {
           </BreadcrumbList>
         </Breadcrumb>
 
-        {/** Command }
+        {/** Command } */}
         <CommandWrapper />
 
-        {/** user dropdown }
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="overflow-hidden rounded-full ml-3"
-            >
-              <Image
-                src="https://avatar.iran.liara.run/public/boy"
-                width={36}
-                height={36}
-                alt="Avatar"
-                className="overflow-hidden rounded-full"
-              />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Support</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Logout</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </header> */}
+        {/* user dropdown */}
+        <UserButton />
+      </header>
 
       <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-0 px-4 lg:px-6 my-6">
         <div className="w-full h-full flex items-center">
           <h1 className="text-xl text-muted-foreground">
-            Welcome <strong className="text-black">Tunde</strong>, <br /> Have a
-            great Tuesday
+            Welcome <strong className="text-black">{user?.lastName}</strong> 👏,{" "}
+            <br /> Have a great {days[new Date().getDay()]}
           </h1>
         </div>
         <CustomCard className="ml-auto shadow-none w-full lg:w-fit min-w-[300px] p-6">
@@ -148,6 +156,8 @@ const page = () => {
       </div>
 
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 w-full">
+        {/* <Home /> */}
+
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 md:gap-8 lg:grid-cols-4 w-full">
           <CustomCard className="p-6 relative col-span-1 lg:col-span-2 shadow-none min-w-[300px] overflow-visible">
             <div className="flex">
@@ -218,7 +228,7 @@ const page = () => {
                   <Library />
                 </div>
               </div>
-              <div className="mt-5 flex flex-col h-fit">
+              <div className="mt-5 flex flex-col h-fit pb-3">
                 <div>
                   <span>
                     which date do you prefer for the annual company dinner ?
@@ -233,19 +243,20 @@ const page = () => {
                     />
                     <Label htmlFor="r1">October 6, Friday</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 mb-1">
                     <RadioGroupItem
-                      className="data-[state=checked]:text-sky-900 data-[state=checked]:ring-0"
+                      className="data-[state=checked]:text-sky-900 data-[state=checked]:ring-0 mb-1"
                       value="comfortable"
                       id="r2"
                     />
                     <Label htmlFor="r2">October 7, Saturday</Label>
                   </div>
                 </RadioGroup>
+
+                <Button className="bg-sky-900 w-fit absolute bottom-0">
+                  Submit
+                </Button>
               </div>
-              <Button className="bg-sky-900 w-fit absolute bottom-0 ">
-                Submit
-              </Button>
             </div>
           </CustomCard>
         </div>

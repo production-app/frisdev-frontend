@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
+import { ClerkProvider } from "@clerk/nextjs";
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
+
       <body
         className={cn(
           "h-screen bg-white font-sans antialiased",
@@ -32,7 +34,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           disableTransitionOnChange
         >
           <MantineProvider>
-          {children}
+            {" "}
+            <ClerkProvider>{children}</ClerkProvider>
           </MantineProvider>
         </ThemeProvider>
       </body>
