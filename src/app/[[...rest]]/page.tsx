@@ -1,32 +1,13 @@
-import { Facebook, Instagram, Twitter } from "lucide-react";
+import "@/styles/globals.css";
+import { SignIn } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 
-const LoginPage = () => {
+const LoginPage = async () => {
   const date = new Date();
-  /**
-   *
-   * json:{ id , name, avatar, role, banner}
-   * user roles: admin, user
-   *
-   * admin : admin layout
-   *
-   * {
-   * role: "sfsf",
-   * layout: <layoutcomponent/>
-   * }
-   *
-   * user: user layout
-   *
-   * if role = admin > admin layout
-   * if role - user > user layout
-   *
-   *
-   * database schema
-   * clerk
-   * api
-   * react query
-   * */
+
+  const role = "admin";
 
   return (
     <div className="relative w-full h-screen">
@@ -34,7 +15,7 @@ const LoginPage = () => {
       <div className="absolute inset-0 z-30">
         <div className="w-full h-full flex flex-row-reverse">
           {/** */}
-          <div className="w-full  lg:w-1/2  relative  flex items-center justify-center">
+          <div className="w-full p-4  lg:w-1/2  relative  flex items-left justify-left">
             <Link href={"/"} className="top-10 absolute m-auto">
               <Image
                 src={"/logo-light.png"}
@@ -44,13 +25,18 @@ const LoginPage = () => {
               />
             </Link>
             <div className="relative w-full h-full flex items-center justify-center">
-              <div className="absolute m-auto inset-0 bg-yellow-700 w-[300px] h-[240px] rounded-lg rotate-[20deg] z-10"></div>
-              <div className="absolute m-auto inset-0 bg-white min-w-[300px] border-2 border-yellow-700 w-fit h-[240px] rounded-lg z-20">
+              <div className="absolute m-auto inset-0 bg-yellow-700 w-[300px] h-[365px] rounded-lg rotate-[20deg] z-10"></div>
+              <div className="absolute m-auto inset-0 bg-white min-w-[300px] border-2 border-yellow-700 w-fit h-[365px] rounded-lg z-20 pb-4">
                 <div className="relative w-full h-[200px] flex flex-col items-center">
                   <div
-                    className=" bg-white h-full  flex flex-col items-center w-full text-center p-6  rounded-lg "
+                    className=" bg-white h-auto  flex flex-col items-center w-full text-center p-7  rounded-lg "
                     id="login-model"
                   >
+                    <SignIn
+                      fallbackRedirectUrl={`${
+                        role === "admin" && "/admin/dashboard"
+                      }  `}
+                    />
                     {/**
                     <Link href={"/"}>
                       <Image
@@ -61,7 +47,7 @@ const LoginPage = () => {
                       />
                     </Link> */}
 
-                    <Image
+                    {/* <Image
                       className="mt-2"
                       src={"/wb.jpeg"}
                       alt="first_register_logo"
@@ -71,8 +57,8 @@ const LoginPage = () => {
 
                     <p className=" text-sm dark:text-gray-200">
                       Login with Microsoft 365 account
-                    </p>
-
+                    </p> */}
+                    {/* 
                     <div className="w-full mt-6">
                       <a href="/" className="block">
                         <button className="w-full text-center bg-sky-900 text-white py-2 my-3 border flex items-center justify-center border-slate-200 rounded-sm hover:bg-sky-900 hover:border-yellow-700 hover:text-white hover:shadow transition duration-150">
@@ -86,16 +72,16 @@ const LoginPage = () => {
                           </span>
                         </button>
                       </a>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
-              <div className="mt-auto py-3 items-center gap-3 justify-center border-t border-t-gray-500 flex flex-col mb-5  text-white text-sm ">
+              <div className="mt-auto  py-3 items-center gap-3 justify-center border-t border-t-gray-500 flex flex-col mb-5  text-white text-sm ">
                 <span>
                   © {date.getFullYear()} First Registrars & Investor Services
                   Limited Rights Reserved.
                 </span>
-                <ul className="flex gap-3 ">
+                {/* <ul className="flex gap-3 ">
                   <li className="border border-gray-500 rounded-md p-1">
                     <a
                       target="_blank"
@@ -120,7 +106,7 @@ const LoginPage = () => {
                       <Twitter />
                     </a>
                   </li>
-                </ul>
+                </ul> */}
               </div>
             </div>
           </div>

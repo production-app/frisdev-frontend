@@ -1,14 +1,7 @@
 import CommandWrapper from "@/components/CommandWrapper";
 import CustomCard from "@/components/custom-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -32,7 +25,14 @@ import Link from "next/link";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { UserButton } from "@clerk/nextjs";
 import Home from "@/components/page_ui/demo/Usesession";
+import { useDisclosure } from "@mantine/hooks";
 import { redirect } from "next/navigation";
+import { Modal } from "@mantine/core";
+
+import { Input } from "@/components/ui/input";
+import DialogComponenet from "@/components/page_ui/Dialog/DialogComponenet";
+import { User_tb, Session_tb } from "@prisma/client";
+import ReactConfetti from "@/components/page_ui/reactConfetti/ReactConfetti";
 
 const SimpleCard = ({
   title,
@@ -72,11 +72,66 @@ const page = async () => {
   let role = "user";
   const { userId } = auth();
 
-  if (role !== "user") return redirect("/");
+  type UserType = {
+    id: number;
+    email: string;
+    firstName: string;
+    lastName: string;
+    clerkUserId: string;
+    imageUrl: string;
+    status: boolean;
+    role: string;
+  };
 
-  if (!user) return <div>Not Logged In</div>;
+  type DepartmentType = {
+    id: number;
+    department: string;
+    division: string;
+    divisionalHead: string;
+    unitCounts: number;
+    Hod: string;
+  };
 
-  //console.log(user);
+  const fetchUser = async () => {
+    try {
+      let result = await fetch(
+        `http://localhost:3000/api/connections/${userId}`
+      );
+      const json = await result.json();
+      // console.log("Logger --->", result.status);
+      return json;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  let deptList: any = [];
+
+  const fetchDepartment = async () => {
+    try {
+      let result = await fetch(`http://localhost:3000/api/restapi`);
+      const json = await result.json();
+      // console.log(json.data);
+      json.data.forEach((item: any) => {
+        deptList.push({
+          id: item.id,
+          department: item.department,
+          division: item.division,
+        });
+      });
+      return deptList;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  let userInfo: any = await fetchUser();
+
+  const userData = userInfo.userId;
+
+  console.log("UserInfo", userData);
+
+  let deptInfo: any = await fetchDepartment();
 
   const days = [
     "Sunday",
@@ -93,7 +148,7 @@ const page = async () => {
       {/** top section */}
       <header className="w-full  flex py-4 px-6 gap-3">
         {/* {/** breadcrumb } */}
-        <Breadcrumb className="hidden md:flex">
+        {/* <Breadcrumb className="hidden md:flex">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
@@ -111,7 +166,7 @@ const page = async () => {
               <BreadcrumbPage>Dashboard</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
-        </Breadcrumb>
+        </Breadcrumb> */}
 
         {/** Command } */}
         <CommandWrapper />
@@ -119,7 +174,6 @@ const page = async () => {
         {/* user dropdown */}
         <UserButton />
       </header>
-
       <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-0 px-4 lg:px-6 my-6">
         <div className="w-full h-full flex items-center">
           <h1 className="text-xl text-muted-foreground">
@@ -160,6 +214,14 @@ const page = async () => {
           </div>
         </CustomCard>
       </div>
+
+      {!userInfo.userId.status ? (
+        <DialogComponenet depart={deptList} data={userInfo} />
+      ) : (
+        <></>
+      )}
+
+      <ReactConfetti />
 
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 w-full">
         {/* <Home /> */}
@@ -292,16 +354,3 @@ const page = async () => {
 };
 
 export default page;
-
-/**<SimpleCard
-            title="Documents processed"
-            value="1500"
-            increase="+20.1%"
-            Icon={File}
-          />
-          <SimpleCard
-            title="attachment"
-            value="2350"
-            increase="+180.1%"
-            Icon={Paperclip}
-          /> */

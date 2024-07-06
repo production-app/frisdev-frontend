@@ -73,4 +73,46 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .cl-internal-4x6jej {
+    @apply display: none !important;
+  }
+
+  .cl-footer {
+    @apply display: none !important;
+  }
+}
+
+@layer components {
+  .cl-internal-4x6jej {
+    display: none !important;
+  }
+
+  .cl-footer {
+    display: none !important;
+  }
+
+  .cl-internal-11ttlho {
+    display: none !important;
+  }
+}
+
+/* styles.css */
+.DialogOverlay {
+  background: rgba(0 0 0 / 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+}
+
+.DialogContent {
+  min-width: 300px;
+  background: white;
+  padding: 30px;
+  border-radius: 4px;
 }

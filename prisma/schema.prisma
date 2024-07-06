@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model Session_tb {
+  id        Int      @id @default(autoincrement())
+  user_id   String?  @db.VarChar(100)
+  client_id String?  @db.VarChar(150)
+  status    String?  @db.VarChar(20)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Department_tb {
+  id             Int       @id @unique @default(autoincrement())
+  department     String    @unique @db.VarChar(65)
+  division       String?   @db.VarChar(65)
+  divisionalHead String?   @db.VarChar(65)
+  unitsCount     Int?
+  Hod            String?   @db.VarChar(50)
+  user           User_tb[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model User_tb {
+  id          Int            @id @default(autoincrement())
+  email       String         @unique @db.VarChar(50)
+  firstName   String         @db.VarChar(50)
+  lastName    String?        @db.VarChar(50)
+  clerkUserId String         @unique @db.VarChar(200)
+  imageUrl    String?        @db.Text
+  status      Boolean?       @default(false)
+  role        String?        @db.VarChar(20)
+  departments Department_tb? @relation(fields: [userId], references: [id])
+  userId      Int?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}

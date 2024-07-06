@@ -13,6 +13,19 @@ interface FileState {
   deleteDocument: (id: number | string) => void;
 }
 
+interface DialogProps {
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+  data: any;
+  toggle: () => void;
+  setData: (data: any) => void;
+}
+
+interface DataProps {
+  user: {};
+}
+
 const useDocumentStore = create<FileState>((set) => ({
   documents: [],
   updateDocument: (newDoc) =>
@@ -22,6 +35,33 @@ const useDocumentStore = create<FileState>((set) => ({
   deleteDocument: (id) =>
     set((state) => ({
       documents: state.documents.filter((doc) => doc.id !== id),
+    })),
+}));
+
+export const useDialog = create<DialogProps>((set) => ({
+  isOpen: true,
+  onOpen: () => set({ isOpen: true }),
+  onClose: () => set({ isOpen: true }),
+  toggle: () => set({ isOpen: false }),
+  data: {},
+  setData: (data) => set({ data: { data } }),
+}));
+
+// export const useData = create<DataProps>((set) => ({
+//   data: {},
+//   setData: (data) => set({ data: { data } }),
+// }))
+
+export const useData = create<DataProps>((set) => ({
+  user: {
+    email: "",
+    first_name: "",
+    last_name: "",
+    status: "",
+  },
+  updateUser: (newUser: any) =>
+    set((state: any) => ({
+      user: { ...state.user, ...newUser },
     })),
 }));
 

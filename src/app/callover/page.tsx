@@ -31,7 +31,7 @@ import { Document, Page } from "react-pdf";
 import { pdfjs } from "react-pdf";
 import { Card as Cards, Switch } from "@mantine/core";
 
-import { toast } from "sonner";
+import { Toaster, toast } from "sonner";
 
 import { Worker, Viewer } from "@react-pdf-viewer/core";
 import { zoomPlugin } from "@react-pdf-viewer/zoom";
