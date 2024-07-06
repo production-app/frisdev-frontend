@@ -1,41 +1,13 @@
-// import { redirect } from "next/navigation";
-
-// const page = () => {
-//   redirect("/login");
-// };
-
-// export default page;
 import "@/styles/globals.css";
 import { SignIn } from "@clerk/nextjs";
-import { Facebook, Instagram, Twitter } from "lucide-react";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 
-const LoginPage = () => {
+const LoginPage = async () => {
   const date = new Date();
-  /**
-   *
-   * json:{ id , name, avatar, role, banner}
-   * user roles: admin, user
-   *
-   * admin : admin layout
-   *
-   * {
-   * role: "sfsf",
-   * layout: <layoutcomponent/>
-   * }
-   *
-   * user: user layout
-   *
-   * if role = admin > admin layout
-   * if role - user > user layout
-   *
-   *
-   * database schema
-   * clerk
-   * api
-   * react query
-   * */
+
+  const role = "admin";
 
   return (
     <div className="relative w-full h-screen">
@@ -60,7 +32,11 @@ const LoginPage = () => {
                     className=" bg-white h-auto  flex flex-col items-center w-full text-center p-7  rounded-lg "
                     id="login-model"
                   >
-                    <SignIn fallbackRedirectUrl={"user/dashboard"} />
+                    <SignIn
+                      fallbackRedirectUrl={`${
+                        role === "admin" && "/admin/dashboard"
+                      }  `}
+                    />
                     {/**
                     <Link href={"/"}>
                       <Image

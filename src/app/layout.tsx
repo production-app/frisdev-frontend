@@ -35,7 +35,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <MantineProvider>
             {" "}
-            <ClerkProvider>{children}</ClerkProvider>
+            <ClerkProvider
+              appearance={{
+                elements: {
+                  footer: "hidden",
+                },
+              }}
+            >
+              {children}
+            </ClerkProvider>
           </MantineProvider>
         </ThemeProvider>
       </body>
