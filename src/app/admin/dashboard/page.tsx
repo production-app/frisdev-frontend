@@ -4,12 +4,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { UserButton } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import {
   File,
   Inbox,
@@ -22,16 +20,8 @@ import {
   Timer,
 } from "lucide-react";
 import Link from "next/link";
-import { auth, currentUser } from "@clerk/nextjs/server";
-import { UserButton } from "@clerk/nextjs";
-import Home from "@/components/page_ui/demo/Usesession";
-import { useDisclosure } from "@mantine/hooks";
-import { redirect } from "next/navigation";
-import { Modal } from "@mantine/core";
 
-import { Input } from "@/components/ui/input";
 import DialogComponenet from "@/components/page_ui/Dialog/DialogComponenet";
-import { User_tb, Session_tb } from "@prisma/client";
 import ReactConfetti from "@/components/page_ui/reactConfetti/ReactConfetti";
 
 const SimpleCard = ({
@@ -127,7 +117,7 @@ const page = async () => {
 
   let userInfo: any = await fetchUser();
 
-  const userData = userInfo.userId;
+  const userData = userInfo?.userId;
 
   console.log("UserInfo", userData);
 
@@ -175,11 +165,17 @@ const page = async () => {
         <UserButton />
       </header>
       <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-0 px-4 lg:px-6 my-6">
-        <div className="w-full h-full flex items-center">
+        <div className="w-full h-full flex flex-col justify-start items-start">
           <h1 className="text-xl text-muted-foreground">
-            Welcome <strong className="text-black">{user?.lastName}</strong> 👏,{" "}
-            <br /> Have a great {days[new Date().getDay()]}
+            Welcome{" "}
+            <strong className="text-black">
+              {user?.lastName ? user.lastName : user?.firstName}
+            </strong>{" "}
+            👏, <br /> Have a great {days[new Date().getDay()]}
           </h1>
+          <div className="p-1 px-3 mt-4 bg-sky-900 text-white rounded-md ">
+            {userData?.role}
+          </div>
         </div>
         <CustomCard className="ml-auto shadow-none w-full lg:w-fit min-w-[300px] p-6">
           <div className="flex flex-col gap-2">
@@ -215,7 +211,7 @@ const page = async () => {
         </CustomCard>
       </div>
 
-      {!userInfo?.userId?.status ? (
+      {!userInfo.userId?.status ? (
         <DialogComponenet depart={deptList} data={userInfo} />
       ) : (
         <></>

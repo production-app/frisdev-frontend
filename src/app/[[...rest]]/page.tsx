@@ -1,6 +1,5 @@
 import "@/styles/globals.css";
 import { SignIn } from "@clerk/nextjs";
-import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -32,11 +31,7 @@ const LoginPage = async () => {
                     className=" bg-white h-auto  flex flex-col items-center w-full text-center p-7  rounded-lg "
                     id="login-model"
                   >
-                    <SignIn
-                      fallbackRedirectUrl={`${
-                        role === "admin" && "/admin/dashboard"
-                      }  `}
-                    />
+                    <SignIn fallbackRedirectUrl={`/auth`} />
                     {/**
                     <Link href={"/"}>
                       <Image

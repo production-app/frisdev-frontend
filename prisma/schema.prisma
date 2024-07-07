@@ -51,13 +51,22 @@ model User_tb {
 }
 
 
-model Job_entry {
+// Define the BannerType model to act as an enum
+model BannerType {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  banners Banner[]
+}
 
-  id                 Int            @id @default(autoincrement())
-  controlNumber      String?        @unique @db.VarChar(70)
-  customerName       String?         @db.VarChar(80)
-  sourceOfDocument   String?        @db.VarChar(90)
-  typeofDocument     String?        @db.VarChar(90)
-  proxyname          String?        @db.VarChar(50)
-
+// Define the Banner model
+model Banner {
+  id          String     @id @default(uuid())
+  title       String
+  content     String
+  department  String
+  bannerType  BannerType @relation(fields: [bannerTypeId], references: [id])
+  bannerTypeId Int
+  image       String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }

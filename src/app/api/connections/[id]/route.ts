@@ -1,11 +1,10 @@
-import { Webhook } from "svix";
-import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
-import { createSession } from "../../../../../util/user";
-import prisma from "../../../../../util/prisma";
-import { Session_tb, User_tb } from "@prisma/client";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { Session_tb } from "@prisma/client";
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
+import { Webhook } from "svix";
+import prisma from "../../../../../util/prisma";
+import { createSession } from "../../../../../util/user";
 
 type Params = {
   id: string;
