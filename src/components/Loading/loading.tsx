@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const LoadingComponent = () => {
+const LoadingComponent = async () => {
   return (
     <div className="fixed inset-0 bg-wokflow_bg">
       <div className="flex items-center justify-center w-full h-full text-white">

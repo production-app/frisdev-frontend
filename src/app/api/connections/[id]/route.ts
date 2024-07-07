@@ -15,7 +15,7 @@ export async function GET(request: Request, context: { params: Params }) {
 
   // console.log("Connection --->", )
 
-  const userId = await prisma.findUnique({
+  const userId = await prisma.user_tb.findUnique({
     where: {
       clerkUserId: `${id}`,
     },
