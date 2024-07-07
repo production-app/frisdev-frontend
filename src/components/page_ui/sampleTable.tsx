@@ -43,6 +43,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
 import Draggable, { DraggableCore } from "react-draggable";
 import RadioButtonComponent from "./RadioButtonComponent";
+import { useModel } from "@/zustand/store/store";
 
 const data: Row[] = [
   {
@@ -81,6 +82,8 @@ const data: Row[] = [
 ];
 
 export function TableViewDocumentLog() {
+  const { Open, Close, OnOpen, OnClose } = useModel();
+
   const [isMounted, setIsMounted] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -94,10 +97,10 @@ export function TableViewDocumentLog() {
   return (
     <TooltipProvider>
       <Modal
-        opened={opened}
+        opened={Open}
         radius="md"
         size="auto"
-        onClose={close}
+        onClose={OnClose}
         overlayProps={{
           backgroundOpacity: 0.6,
           blur: 3,
@@ -153,7 +156,11 @@ export function TableViewDocumentLog() {
                 </span>
               </Button>
               {/* <Link href={"/jobs/new"}> */}
-              <Button size="sm" className="h-8 gap-1 bg-sky-900" onClick={open}>
+              <Button
+                size="sm"
+                className="h-8 gap-1 bg-sky-900"
+                onClick={OnOpen}
+              >
                 <PlusCircle className="h-3.5 w-3.5" />
                 <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
                   Add Job(s)

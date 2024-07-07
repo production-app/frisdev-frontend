@@ -5,12 +5,13 @@ import Confetti from "react-confetti";
 
 const ReactConfetti = () => {
   const { width, height } = useWindowSize();
+
   return (
     <>
       <Confetti
         width={width}
         height={height}
-        tweenDuration={4500}
+        tweenDuration={5500}
         recycle={false}
       />
     </>

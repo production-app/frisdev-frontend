@@ -20,40 +20,66 @@ export function NestFormComponent() {
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
-      contact: [{ name: "", phone: "", key: randomId() }],
+      contact: [{ name: "", phone: "", email: "", key: randomId() }],
     },
   });
 
   const fields = form.getValues().contact.map((item, index) => (
     <>
-      <SimpleGrid
-        cols={{ base: 1, sm: 2 }}
-        className="flex justify-between mt-4"
-      >
+      <div className="flex justify-between mt-4">
         {/* <Group key={item.key} mt="xs"> */}
         <TextInput
           placeholder="John Doe"
           withAsterisk
+          label="Phone"
           //style={{ flex: 1 }}
           key={form.key(`contact.${index}.name`)}
           {...form.getInputProps(`contact.${index}.name`)}
         />
-        <PhoneInput
+        {/* <PhoneInput
           country={"ng"}
           value={""}
           //onChange={}
           key={form.key(`contact.${index}.phone`)}
           {...form.getInputProps(`contact.${index}.phone`)}
+        /> */}
+
+        {/* <PhoneInput
+          country={"ng"}
+          value={""}
+          //onChange={}
+          key={form.key(`contact.${index}.phone`)}
+          {...form.getInputProps(`contact.${index}.phone`)}
+        /> */}
+
+        <TextInput
+          placeholder="John Doe"
+          withAsterisk
+          label="Proxy"
+          //style={{ flex: 1 }}
+          key={form.key(`contact.${index}.name`)}
+          {...form.getInputProps(`contact.${index}.name`)}
         />
+
+        <TextInput
+          placeholder="John Doe"
+          withAsterisk
+          label="Proxy"
+          //style={{ flex: 1 }}
+          key={form.key(`contact.${index}.name`)}
+          {...form.getInputProps(`contact.${index}.name`)}
+        />
+
         <ActionIcon
           color="red"
+          className="mt-6"
           onClick={() => form.removeListItem("contact", index)}
         >
           <IconTrash size="1rem" />
         </ActionIcon>
+
         {/* </Group> */}
-      </SimpleGrid>
-      <Separator className="mt-2" />
+      </div>
     </>
   ));
 
@@ -61,20 +87,20 @@ export function NestFormComponent() {
     <>
       {fields.length > 0 ? (
         <>
-          <Text c="dimmed" ta="center" className="mt-8">
+          <Text c="dimmed" ta="center" className="mt-10 mb-20">
             The collected will used for feedback to the customer
           </Text>
-          <SimpleGrid
-            cols={{ base: 1, sm: 2 }}
-            className="flex justify-between mt-5"
-          >
+          {/* <div className="flex justify-between mt-5">
             <Text fw={500} size="sm" style={{ flex: 1 }}>
               Name of contact:
             </Text>
             <Text fw={500} size="sm" pr={90}>
               Phone:
             </Text>
-          </SimpleGrid>
+            <Text fw={500} size="sm" pr={90}>
+              Email:
+            </Text>
+          </div> */}
         </>
       ) : (
         <Text c="dimmed" ta="center" className="mt-2">

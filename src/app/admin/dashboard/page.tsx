@@ -215,7 +215,7 @@ const page = async () => {
         </CustomCard>
       </div>
 
-      {!userInfo.userId.status ? (
+      {!userInfo?.userId?.status ? (
         <DialogComponenet depart={deptList} data={userInfo} />
       ) : (
         <></>

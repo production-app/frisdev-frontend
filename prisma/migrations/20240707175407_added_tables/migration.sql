@@ -37,13 +37,25 @@ CREATE TABLE [dbo].[User_tb] (
     [clerkUserId] VARCHAR(200) NOT NULL,
     [imageUrl] TEXT,
     [status] BIT CONSTRAINT [User_tb_status_df] DEFAULT 0,
-    [role] VARCHAR(20),
+    [role] VARCHAR(20) CONSTRAINT [User_tb_role_df] DEFAULT 'user',
     [userId] INT,
     [createdAt] DATETIME2 NOT NULL CONSTRAINT [User_tb_createdAt_df] DEFAULT CURRENT_TIMESTAMP,
     [updatedAt] DATETIME2 NOT NULL,
     CONSTRAINT [User_tb_pkey] PRIMARY KEY CLUSTERED ([id]),
     CONSTRAINT [User_tb_email_key] UNIQUE NONCLUSTERED ([email]),
     CONSTRAINT [User_tb_clerkUserId_key] UNIQUE NONCLUSTERED ([clerkUserId])
+);
+
+-- CreateTable
+CREATE TABLE [dbo].[Job_entry] (
+    [id] INT NOT NULL IDENTITY(1,1),
+    [controlNumber] VARCHAR(70) NOT NULL CONSTRAINT [Job_entry_controlNumber_df] DEFAULT 'CN',
+    [customerName] VARCHAR(80) NOT NULL,
+    [sourceOfDocument] VARCHAR(90),
+    [typeofDocument] VARCHAR(90),
+    [proxyname] VARCHAR(50),
+    CONSTRAINT [Job_entry_pkey] PRIMARY KEY CLUSTERED ([id]),
+    CONSTRAINT [Job_entry_controlNumber_key] UNIQUE NONCLUSTERED ([controlNumber])
 );
 
 -- AddForeignKey

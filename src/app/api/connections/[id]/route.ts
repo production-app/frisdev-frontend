@@ -22,7 +22,7 @@ export async function GET(request: Request, context: { params: Params }) {
     },
   });
 
-  console.log("Connection --->", userId);
+  // console.log("Connection --->", userId);
 
   return NextResponse.json({ userId });
 }

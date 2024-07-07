@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import {
   Radio,
@@ -16,12 +17,26 @@ import {
   Select,
   Space,
   SimpleGrid,
+  ActionIcon,
 } from "@mantine/core";
 import classes from "./styles/RadioButton.module.css";
 import { cn } from "@/lib/utils";
 import { DropZoneComponenet } from "./DropZoneComponent";
 import { NestFormComponent } from "./NestFormComponent";
 import { Separator } from "../ui/separator";
+import JobForm from "./JobForm/JobForm";
+import {
+  useForm,
+  isNotEmpty,
+  isEmail,
+  isInRange,
+  hasLength,
+  matches,
+} from "@mantine/form";
+import { randomId } from "@mantine/hooks";
+import { IconTrash } from "@tabler/icons-react";
+import { redirect } from "next/navigation";
+import { useModel } from "@/zustand/store/store";
 
 type dataType = {
   id: number;
@@ -46,10 +61,89 @@ const data: dataType[] = [
 
 const RadioButtonComponent = () => {
   const [value, setValue] = useState<string | null>(null);
+  const { Open, Close, OnOpen, OnClose } = useModel();
 
   useEffect(() => {
     console.log(value);
   }, [value]);
+
+  const form = useForm({
+    mode: "uncontrolled",
+    initialValues: {
+      nameofcustomer: "",
+      soureofdocument: "",
+      jobtypes: "",
+      proxyname: "",
+      contact: [{ name: "", phone: "", email: "", key: randomId() }],
+    },
+
+    validate: {
+      soureofdocument: (value) =>
+        value.length < 2 ? "Please select Document Source" : null,
+      jobtypes: (value) =>
+        value.length < 2 ? "Please select Jobs Type" : null,
+      proxyname: (value) => (value.length < 2 ? "Proxy Name need" : null),
+    },
+  });
+
+  const fields = form.getValues().contact.map((item, index) => (
+    <>
+      <div className="flex justify-between mt-4">
+        {/* <Group key={item.key} mt="xs"> */}
+        <TextInput
+          placeholder="John Doe"
+          withAsterisk
+          label="Fullname"
+          //style={{ flex: 1 }}
+          key={form.key(`contact.${index}.name`)}
+          {...form.getInputProps(`contact.${index}.name`)}
+        />
+        {/* <PhoneInput
+          country={"ng"}
+          value={""}
+          //onChange={}
+          key={form.key(`contact.${index}.phone`)}
+          {...form.getInputProps(`contact.${index}.phone`)}
+        /> */}
+
+        {/* <PhoneInput
+          country={"ng"}
+          value={""}
+          //onChange={}
+          key={form.key(`contact.${index}.phone`)}
+          {...form.getInputProps(`contact.${index}.phone`)}
+        /> */}
+
+        <TextInput
+          placeholder="+234802998490"
+          withAsterisk
+          label="Phone"
+          //style={{ flex: 1 }}
+          key={form.key(`contact.${index}.phone`)}
+          {...form.getInputProps(`contact.${index}.phone`)}
+        />
+
+        <TextInput
+          placeholder="doe@yahoo.com"
+          withAsterisk
+          label="Email"
+          //style={{ flex: 1 }}
+          key={form.key(`contact.${index}.email`)}
+          {...form.getInputProps(`contact.${index}.email`)}
+        />
+
+        <ActionIcon
+          color="red"
+          className="mt-6"
+          onClick={() => form.removeListItem("contact", index)}
+        >
+          <IconTrash size="1rem" />
+        </ActionIcon>
+
+        {/* </Group> */}
+      </div>
+    </>
+  ));
 
   const cards = data.map((item: dataType) => (
     <Radio.Card
@@ -67,6 +161,15 @@ const RadioButtonComponent = () => {
       </Group>
     </Radio.Card>
   ));
+
+  const formSubmit = async (value: any) => {
+    await fetch("http://localhost:3000/api/jobs", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...value }),
+    });
+    OnClose();
+  };
 
   return (
     <>
@@ -90,59 +193,109 @@ const RadioButtonComponent = () => {
         <Container>
           {" "}
           <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-            <TextInput
-              label="Name of customer"
-              placeholder="Abdul Eze"
-              required
-            />
-
-            <SimpleGrid cols={{ base: 1, sm: 2 }}>
-              <Select
-                className="my-3"
-                label="Source of Document"
-                placeholder="Pick value"
-                data={[
-                  "Walk-In",
-                  "Courier",
-                  "Stockbroker",
-                  "Email",
-                  "Online form",
-                  "Branch office",
-                  "Other",
-                ]}
+            <form onSubmit={form.onSubmit((value) => formSubmit(value))}>
+              <TextInput
+                label="Name of customer"
+                placeholder="Abdul Eze"
+                required
+                key={form.key("nameofcustomer")}
+                {...form.getInputProps("nameofcustomer")}
               />
 
-              <Select
-                className="my-3"
-                // size="md"
-                label="Type of Jobs"
-                placeholder="Pick value"
-                data={[
-                  "eDividend",
-                  "Letter of Administrator",
-                  "Banker's Confirmation",
-                  "eBonus",
-                  "Branch office",
-                  "Other",
-                ]}
+              <SimpleGrid cols={{ base: 1, sm: 2 }}>
+                <Select
+                  className="my-3"
+                  label="Source of Document"
+                  placeholder="Pick value"
+                  data={[
+                    "Walk-In",
+                    "Courier",
+                    "Stockbroker",
+                    "Email",
+                    "Online form",
+                    "Branch office",
+                    "Other",
+                  ]}
+                  key={form.key("soureofdocument")}
+                  {...form.getInputProps("soureofdocument")}
+                />
+
+                <Select
+                  className="my-3"
+                  // size="md"
+                  label="Type of Jobs"
+                  placeholder="Pick value"
+                  data={[
+                    "eDividend",
+                    "Letter of Administrator",
+                    "Banker's Confirmation",
+                    "eBonus",
+                    "Branch office",
+                    "Other",
+                  ]}
+                  key={form.key("jobtypes")}
+                  {...form.getInputProps("jobtypes")}
+                />
+              </SimpleGrid>
+              <TextInput
+                label="Proxy/Submitted by:"
+                placeholder="Abdul Eze"
+                required
+                className="mb-5"
+                key={form.key("proxyname")}
+                {...form.getInputProps("proxyname")}
               />
-            </SimpleGrid>
-            <TextInput
-              label="Proxy/Submitted by:"
-              placeholder="Abdul Eze"
-              required
-              className="mb-5"
-            />
 
-            <NestFormComponent />
+              {fields.length > 0 ? (
+                <>
+                  <Text c="dimmed" ta="center" className="mt-10 mb-20">
+                    The collection will be used for feedback to the customer
+                  </Text>
+                  {/* <div className="flex justify-between mt-5">
+            <Text fw={500} size="sm" style={{ flex: 1 }}>
+              Name of contact:
+            </Text>
+            <Text fw={500} size="sm" pr={90}>
+              Phone:
+            </Text>
+            <Text fw={500} size="sm" pr={90}>
+              Email:
+            </Text>
+          </div> */}
+                </>
+              ) : (
+                <Text c="dimmed" ta="center" className="mt-2">
+                  No one here...
+                </Text>
+              )}
 
-            <Separator className="mt-3" />
+              {fields}
 
-            <DropZoneComponenet />
+              <Group justify="center" mt="md">
+                <Button
+                  onClick={(val) => {
+                    form.insertListItem("contact", {
+                      name: "",
+                      phone: "",
+                      email: "",
+                      key: randomId(),
+                    });
+                  }}
+                >
+                  Add
+                </Button>
+              </Group>
 
-            <Button fullWidth mt="xl">
-              Submit
-            </Button>
+              {/* <NestFormComponent /> */}
+
+              <Separator className="mt-3" />
+
+              {/* <DropZoneComponenet /> */}
+
+              <Button fullWidth mt="xl" type="submit">
+                Submit
+              </Button>
+            </form>
           </Paper>
         </Container>
       ) : value === "2" ? (

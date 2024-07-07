@@ -22,6 +22,16 @@ interface DialogProps {
   setData: (data: any) => void;
 }
 
+interface ModelProps {
+  Open: boolean;
+  Close: boolean;
+  OnOpen: () => void;
+  OnClose: () => void;
+  // onClose: () => void;
+  toggle: () => void;
+  // setData: (data: any) => void;
+}
+
 interface DataProps {
   user: {};
 }
@@ -47,10 +57,13 @@ export const useDialog = create<DialogProps>((set) => ({
   setData: (data) => set({ data: { data } }),
 }));
 
-// export const useData = create<DataProps>((set) => ({
-//   data: {},
-//   setData: (data) => set({ data: { data } }),
-// }))
+export const useModel = create<ModelProps>((set) => ({
+  Open: false,
+  Close: false,
+  OnOpen: () => set({ Open: true }),
+  OnClose: () => set({ Open: false }),
+  toggle: () => set({ Open: true }),
+}));
 
 export const useData = create<DataProps>((set) => ({
   user: {
