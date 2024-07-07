@@ -4,12 +4,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { UserButton } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import {
   File,
   Inbox,
@@ -22,16 +20,8 @@ import {
   Timer,
 } from "lucide-react";
 import Link from "next/link";
-import { auth, currentUser } from "@clerk/nextjs/server";
-import { UserButton } from "@clerk/nextjs";
-import Home from "@/components/page_ui/demo/Usesession";
-import { useDisclosure } from "@mantine/hooks";
-import { redirect } from "next/navigation";
-import { Modal } from "@mantine/core";
 
-import { Input } from "@/components/ui/input";
 import DialogComponenet from "@/components/page_ui/Dialog/DialogComponenet";
-import { User_tb, Session_tb } from "@prisma/client";
 import ReactConfetti from "@/components/page_ui/reactConfetti/ReactConfetti";
 
 const SimpleCard = ({
