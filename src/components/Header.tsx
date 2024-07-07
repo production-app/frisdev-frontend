@@ -59,25 +59,25 @@ const Header = () => {
     return response.json();
   };
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["banner"],
-    queryFn: fetchBanners,
-  });
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ["banner"],
+  //   queryFn: fetchBanners,
+  // });
 
-  const banners: Banner[] = data ? data : [];
+  // const banners: Banner[] = data ? data : [];
 
-  const globalBanners = banners.filter(
-    (banner) => banner.bannerType === "global"
-  );
+  // const globalBanners = banners.filter(
+  //   (banner) => banner?.bannerType === "global"
+  // );
 
-  const departmentBanners = banners.filter(
-    (banner) => banner.bannerType === "department"
-  );
-  const userBanners = banners.filter((banner) => banner.bannerType === "user");
+  // const departmentBanners = banners.filter(
+  //   (banner) => banner?.bannerType === "department"
+  // );
+  // const userBanners = banners.filter((banner) => banner.bannerType === "user");
 
   return (
     <>
-      <header className="w-full   flex py-4 px-6">
+      {/* <header className="w-full   flex py-4 px-6">
         <Breadcrumb className="hidden md:flex">
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -200,7 +200,7 @@ const Header = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-      </header>
+      </header> */}
     </>
   );
 };
@@ -249,7 +249,7 @@ const NotifItem = ({ banner }: { banner: Banner }) => {
             <Avatar className="bg-sky-900 rounded-lg relative overflow-visible">
               <div className="w-full h-full flex items-center justify-center">
                 <span className="uppercase text-white font-bold">
-                  {banner.bannerType === "global" ? "G" : "D"}
+                  {/* {banner.bannerType === "global" ? "G" : "D"} */}
                 </span>
               </div>
               <span className="h-3 w-3 -bottom-1 -left capitalize-1 rounded-full bg-green-600 absolute"></span>

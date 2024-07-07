@@ -1,4 +1,4 @@
-import ScanTable from "@/components/page_ui/Scanpage";
+import ScanTable from "@/components/page_ui/scan/Scanpage";
 
 const DocCheckPage = () => {
   return (

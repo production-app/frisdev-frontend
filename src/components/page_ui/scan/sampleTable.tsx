@@ -35,7 +35,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import LinksVisitors from "../ui/CollapsibleTable";
+import LinksVisitors from "@/components/ui/CollapsibleTable";
 
 const links = [
   { id: 1, name: "Biodun", viewCount: 3 },

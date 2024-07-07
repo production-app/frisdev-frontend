@@ -47,19 +47,45 @@ CREATE TABLE [dbo].[User_tb] (
 );
 
 -- CreateTable
+CREATE TABLE [dbo].[BannerType] (
+    [id] INT NOT NULL IDENTITY(1,1),
+    [name] NVARCHAR(1000) NOT NULL,
+    CONSTRAINT [BannerType_pkey] PRIMARY KEY CLUSTERED ([id]),
+    CONSTRAINT [BannerType_name_key] UNIQUE NONCLUSTERED ([name])
+);
+
+-- CreateTable
+CREATE TABLE [dbo].[Banner] (
+    [id] NVARCHAR(1000) NOT NULL,
+    [title] NVARCHAR(1000) NOT NULL,
+    [content] NVARCHAR(1000) NOT NULL,
+    [department] NVARCHAR(1000) NOT NULL,
+    [bannerTypeId] INT NOT NULL,
+    [image] NVARCHAR(1000),
+    [createdAt] DATETIME2 NOT NULL CONSTRAINT [Banner_createdAt_df] DEFAULT CURRENT_TIMESTAMP,
+    [updatedAt] DATETIME2 NOT NULL,
+    CONSTRAINT [Banner_pkey] PRIMARY KEY CLUSTERED ([id])
+);
+
+-- CreateTable
 CREATE TABLE [dbo].[Job_entry] (
     [id] INT NOT NULL IDENTITY(1,1),
-    [controlNumber] VARCHAR(70) NOT NULL CONSTRAINT [Job_entry_controlNumber_df] DEFAULT 'CN',
-    [customerName] VARCHAR(80) NOT NULL,
+    [controlNumber] VARCHAR(70),
+    [customerName] VARCHAR(80),
     [sourceOfDocument] VARCHAR(90),
     [typeofDocument] VARCHAR(90),
     [proxyname] VARCHAR(50),
+    [createdAt] DATETIME2 NOT NULL CONSTRAINT [Job_entry_createdAt_df] DEFAULT CURRENT_TIMESTAMP,
+    [updatedAt] DATETIME2 NOT NULL,
     CONSTRAINT [Job_entry_pkey] PRIMARY KEY CLUSTERED ([id]),
     CONSTRAINT [Job_entry_controlNumber_key] UNIQUE NONCLUSTERED ([controlNumber])
 );
 
 -- AddForeignKey
 ALTER TABLE [dbo].[User_tb] ADD CONSTRAINT [User_tb_userId_fkey] FOREIGN KEY ([userId]) REFERENCES [dbo].[Department_tb]([id]) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[Banner] ADD CONSTRAINT [Banner_bannerTypeId_fkey] FOREIGN KEY ([bannerTypeId]) REFERENCES [dbo].[BannerType]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 COMMIT TRAN;
 

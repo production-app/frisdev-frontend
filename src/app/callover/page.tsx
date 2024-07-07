@@ -27,7 +27,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Document, Page } from "react-pdf";
+import { Document, Page as Pages } from "react-pdf";
 import { pdfjs } from "react-pdf";
 import { Card as Cards, Switch } from "@mantine/core";
 
@@ -47,7 +47,7 @@ import Thumbnail from "@/components/page_ui/Thumbnail";
 //   import.meta.url
 // ).toString();
 
-const page = () => {
+const Page = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [checked, setChecked] = useState(false);
   const [pdfLoading, setPdfLoading] = useState(
@@ -105,6 +105,7 @@ const page = () => {
           <Button
             variant="ghost"
             className="mt-20"
+            key={data?.url}
             onClick={() => setPdfLoading(data?.url)}
           >
             <div style={{ height: "10% important" }}>
@@ -236,4 +237,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

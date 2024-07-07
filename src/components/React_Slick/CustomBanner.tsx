@@ -9,102 +9,79 @@ import { Skeleton } from "../ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import SliderComponent from "./Slider";
 
-
-
-
- 
-
-
-
-  /**
-   * 
-   * role = {
-   * name: admin;
-   * views: {
-   * assignRole: true,
-   * djnfdjn: true
-   * }
-   * 
-   * user/ :
-   * }
-   * 
-   * assignRole && <AssignROle/>
-   * viesws = {
-   * 
-   * }
-   */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+ *
+ * role = {
+ * name: admin;
+ * views: {
+ * assignRole: true,
+ * djnfdjn: true
+ * }
+ *
+ * user/ :
+ * }
+ *
+ * assignRole && <AssignROle/>
+ * viesws = {
+ *
+ * }
+ */
 
 const CustomBanner = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["banner"],
-    queryFn: async () => {
-      const response = await fetch("http://localhost:3000/api/banners");
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    },
-  });
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ["banner"],
+  //   queryFn: async () => {
+  //     const response = await fetch("http://localhost:3000/api/banners");
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
+  //     return response.json();
+  //   },
+  // });
 
-  const banners: Banner[] = data ? data : [];
+  // const banners: Banner[] = data ? data : [];
 
-  const globalBanners = banners.filter(
-    (banner) => banner.bannerType === "global"
-  );
-  const departmentBanners = banners.filter(
-    (banner) => banner.bannerType === "department"
-  );
-  // const userBanners = banners.filter((banner) => banner.bannerType === "user");
+  // const globalBanners = banners.filter(
+  //   (banner) => banner?.bannerType === "global"
+  // );
+  // const departmentBanners = banners.filter(
+  //   (banner) => banner.bannerType === "department"
+  // );
+  // // const userBanners = banners.filter((banner) => banner.bannerType === "user");
 
   return (
     <div className="px-6 w-full my-5 transition-transform">
       <Tabs defaultValue="global" className="w-full">
         <TabsList className="w-full flex justify-start">
-          <CustomTabTrigger
-            datalength={globalBanners.length}
-            triggerTitle="Global"
-            defaultValue={"global"}
-            value="global"
-          ></CustomTabTrigger>
-          <CustomTabTrigger
-            datalength={departmentBanners.length}
+          {/* <CustomTabTrigger
+            // datalength={globalBanners.length}
+            // triggerTitle="Global"
+            // defaultValue={"global"}
+            // value="global"
+          ></CustomTabTrigger> */}
+          {/* <CustomTabTrigger
+            //datalength={departmentBanners.length}
             triggerTitle="Department"
             value="department"
-          ></CustomTabTrigger>
+          ></CustomTabTrigger> */}
         </TabsList>
         <motion.div className="mt-5" layout>
-          <TabsContent asChild className="mt-5" value="global">
+          {/* <TabsContent asChild className="mt-5" value="global">
             {isLoading ? (
               <Skeleton className="w-full h-[300px] rounded-lg" />
             ) : (
               <SliderComponent banners={globalBanners} />
             )}
-          </TabsContent>
+          </TabsContent> */}
         </motion.div>
         <motion.div className="mt-5" layout>
-          <TabsContent asChild value="department">
+          {/* <TabsContent asChild value="department">
             {isLoading ? (
               <Skeleton className="w-full h-[300px] rounded-lg" />
             ) : (
               <SliderComponent banners={departmentBanners} />
             )}
-          </TabsContent>
+          </TabsContent> */}
         </motion.div>
         <motion.div layout>
           <TabsContent asChild className="mt-5" value="user">

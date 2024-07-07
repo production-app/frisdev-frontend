@@ -18,7 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import DataCard from "@components/card/data-card";
+import DataCard from "@/components/card/data-card";
 import { File, Paperclip } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

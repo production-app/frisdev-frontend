@@ -1,4 +1,4 @@
-import prisma from "@lib/prisma";
+import prisma from "@/lib/prisma";
 import { Banner } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 export async function GET(
@@ -13,7 +13,7 @@ export async function GET(
 
     if (bannerType) {
       const data = await prisma.banner.findMany({
-        where: { bannerType: bannerType as Banner["bannerType"] },
+        // where: { bannerType: bannerType as Banner["bannerType"] },
       });
       return NextResponse.json(data, { status: 201 });
     } else {
