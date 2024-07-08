@@ -6,7 +6,7 @@ import Link from "next/link";
 const LoginPage = async () => {
   const date = new Date();
 
-  const role = "admin";
+  const role = "user";
 
   return (
     <div className="relative w-full h-screen">
