@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -42,7 +43,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 },
               }}
             >
-              {children}
+              <AntdRegistry> {children}</AntdRegistry>
             </ClerkProvider>
           </MantineProvider>
         </ThemeProvider>

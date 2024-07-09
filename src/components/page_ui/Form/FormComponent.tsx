@@ -82,11 +82,14 @@ export default function FormComponent(depart: any, data: any) {
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    const response = await fetch("http://localhost:3000/api/api", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...values, id: userId }),
-    });
+    const response = await fetch(
+      "https://frisdev-frontend-gilt.vercel.app/api/deptapi",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...values, id: userId }),
+      }
+    );
 
     toggle();
   };

@@ -23,6 +23,7 @@ import Link from "next/link";
 
 import DialogComponenet from "@/components/page_ui/Dialog/DialogComponenet";
 import ReactConfetti from "@/components/page_ui/reactConfetti/ReactConfetti";
+import UserManagmentTable from "@/components/UserManagementTable/UserManagmentTable";
 
 const SimpleCard = ({
   title,
@@ -220,12 +221,12 @@ const page = async () => {
         <></>
       )}
 
-      <ReactConfetti />
+      {/* <ReactConfetti /> */}
 
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 w-full">
         {/* <Home /> */}
 
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 md:gap-8 lg:grid-cols-4 w-full">
+        {/* <div className="grid gap-4 grid-cols-1 md:grid-cols-2 md:gap-8 lg:grid-cols-4 w-full">
           <CustomCard className="p-6 relative col-span-1 lg:col-span-2 shadow-none min-w-[300px] overflow-visible">
             <div className="flex">
               <div className="flex items-center gap-2">
@@ -326,27 +327,9 @@ const page = async () => {
               </div>
             </div>
           </CustomCard>
-        </div>
-        <div className="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-          <SimpleCard
-            title="Documents processed"
-            value="1500"
-            increase="+20.1%"
-            Icon={File}
-          />
-          <SimpleCard
-            title="attachment"
-            value="2350"
-            increase="+180.1%"
-            Icon={Paperclip}
-          />
-          <SimpleCard
-            title="attachment"
-            value="2350"
-            increase="+180.1%"
-            Icon={Paperclip}
-          />
-        </div>
+        </div> */}
+
+        <UserManagmentTable />
       </main>
     </div>
   );

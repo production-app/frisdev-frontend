@@ -26,6 +26,7 @@ interface NavProps {
   title: string;
   label?: string;
   icon: LucideIcon;
+  url: string;
   variant: "default" | "ghost";
 }
 [];
@@ -35,37 +36,43 @@ const NavbarComp = () => {
 
   const links: NavProps[] = [
     {
-      title: "Inbox",
+      title: "Dashboard",
+      url: "badmin",
       label: "128",
       icon: Inbox,
       variant: "default",
     },
     {
       title: "Drafts",
+      url: "/",
       label: "9",
       icon: File,
       variant: "ghost",
     },
     {
       title: "Sent",
+      url: "/",
       label: "",
       icon: Send,
       variant: "ghost",
     },
     {
       title: "Junk",
+      url: "/",
       label: "23",
       icon: ArchiveX,
       variant: "ghost",
     },
     {
       title: "Trash",
+      url: "/",
       label: "",
       icon: Trash2,
       variant: "ghost",
     },
     {
       title: "Archive",
+      url: "/",
       label: "",
       icon: Archive,
       variant: "ghost",
@@ -100,7 +107,7 @@ const NavbarComp = () => {
               <Tooltip key={index} delayDuration={0}>
                 <TooltipTrigger asChild>
                   <Link
-                    href="#"
+                    href={link.url}
                     className={cn(
                       buttonVariants({
                         variant: link.variant,
