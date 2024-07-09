@@ -10,7 +10,7 @@ const AuthUser = () => {
 
     try {
       let result = await fetch(
-        `http://localhost:3000/api/connections/${userId}`
+        `https://frisdev-frontend-gilt.vercel.app/api/connections/${userId}`
       );
       await result.json().then((res) => {
         rolesInfo = res.userId.role;

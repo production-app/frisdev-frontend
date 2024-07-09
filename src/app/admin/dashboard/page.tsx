@@ -85,7 +85,7 @@ const page = async () => {
   const fetchUser = async () => {
     try {
       let result = await fetch(
-        `http://localhost:3000/api/connections/${userId}`
+        `https://frisdev-frontend-gilt.vercel.app/api/connections/${userId}`
       );
       const json = await result.json();
       // console.log("Logger --->", result.status);
@@ -99,7 +99,9 @@ const page = async () => {
 
   const fetchDepartment = async () => {
     try {
-      let result = await fetch(`http://localhost:3000/api/restapi`);
+      let result = await fetch(
+        `https://frisdev-frontend-gilt.vercel.app/api/restapi`
+      );
       const json = await result.json();
       // console.log(json.data);
       json.data.forEach((item: any) => {
