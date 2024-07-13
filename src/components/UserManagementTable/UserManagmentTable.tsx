@@ -255,7 +255,7 @@ const UserManagmentTable = (props: any) => {
     setLoading(true);
 
     //firstregistrarsnigeria.com/frisportals/allusers
-    fetch(`https://frisdev-frontend-gilt.vercel.app/api/getusers`)
+    fetch(`http://localhost:3000/api/getusers`)
       .then((res) => res.json())
       .then((res) => {
         setLoading(true);
@@ -404,7 +404,7 @@ const UserManagmentTable = (props: any) => {
 
         await axios
           .put(
-            `https://frisdev-frontend-gilt.vercel.app/api/editusers/${key}`,
+            `http://localhost:3000/api/editusers/${key}`,
             // `https://firstregistrarsnigeria.com/frisportals/globalroles/${key}`,
             {
               role: newData[index].role,

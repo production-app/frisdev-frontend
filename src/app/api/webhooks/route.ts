@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { createUser } from "../../../../util/user";
 import { User_tb } from "@prisma/client";
+import axios from "axios";
 
 // export async function GET() {
 //   console.log(process.env.CLERK_WEBHOOK_SECRET);
@@ -74,6 +75,19 @@ export async function POST(req: Request) {
     };
 
     await createUser(user as User_tb);
+
+    console.log("User--->", user);
+
+    await axios
+      .post("http://localhost:6000/api", {
+        data: user,
+      })
+      .then(function (response) {
+        console.log("Response---->", response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   return new Response("Done !", { status: 200 });

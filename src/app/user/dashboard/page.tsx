@@ -33,6 +33,7 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { UserButton } from "@clerk/nextjs";
 import Home from "@/components/page_ui/demo/Usesession";
 import { redirect } from "next/navigation";
+import DialogComponenet from "@/components/page_ui/Dialog/DialogComponenet";
 
 const SimpleCard = ({
   title,
@@ -72,9 +73,68 @@ const page = async () => {
   let role = "user";
   const { userId } = auth();
 
-  if (role !== "user") return redirect("/");
+  type UserType = {
+    id: number;
+    email: string;
+    firstName: string;
+    lastName: string;
+    clerkUserId: string;
+    imageUrl: string;
+    status: boolean;
+    role: string;
+  };
 
-  if (!user) return <div>Not Logged In</div>;
+  type DepartmentType = {
+    id: number;
+    department: string;
+    division: string;
+    divisionalHead: string;
+    unitCounts: number;
+    Hod: string;
+  };
+
+  const fetchUser = async () => {
+    try {
+      let result = await fetch(
+        `https://frisdev-frontend-gilt.vercel.app/api/connections/${userId}`
+      );
+      const json = await result.json();
+      // console.log("Logger --->", result.status);
+      return json;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  let deptList: any = [];
+
+  const fetchDepartment = async () => {
+    try {
+      let result = await fetch(
+        `https://frisdev-frontend-gilt.vercel.app/api/restapi`
+      );
+      const json = await result.json();
+      // console.log(json.data);
+      json.data.forEach((item: any) => {
+        deptList.push({
+          id: item.id,
+          department: item.department,
+          division: item.division,
+        });
+      });
+      return deptList;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  let userInfo: any = await fetchUser();
+
+  const userData = userInfo?.userId;
+
+  console.log("UserInfo", userData);
+
+  let deptInfo: any = await fetchDepartment();
 
   //console.log(user);
 
@@ -163,6 +223,12 @@ const page = async () => {
 
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 w-full">
         {/* <Home /> */}
+
+        {!userInfo.userId?.status ? (
+          <DialogComponenet depart={deptList} data={userInfo} />
+        ) : (
+          <></>
+        )}
 
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 md:gap-8 lg:grid-cols-4 w-full">
           <CustomCard className="p-6 relative col-span-1 lg:col-span-2 shadow-none min-w-[300px] overflow-visible">

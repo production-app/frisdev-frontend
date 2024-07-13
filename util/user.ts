@@ -1,5 +1,5 @@
 import prisma from "./prisma";
-import { Session_tb, Department_tb, User_tb } from "@prisma/client";
+import { Session_tb, Department_tb, User_tb, User_Table } from "@prisma/client";
 
 export async function createUser(data: any) {
   try {
@@ -24,7 +24,7 @@ export async function createUser(data: any) {
 
 export async function createSession(data: Session_tb) {
   try {
-    console.log(data);
+    //console.log(data);
 
     // const userId = await prisma.users_frisops_tb.findUnique({
     //   where: {

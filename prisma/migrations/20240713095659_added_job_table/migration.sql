@@ -37,7 +37,7 @@ CREATE TABLE [dbo].[User_tb] (
     [clerkUserId] VARCHAR(200) NOT NULL,
     [imageUrl] TEXT,
     [status] BIT CONSTRAINT [User_tb_status_df] DEFAULT 0,
-    [role] VARCHAR(20) CONSTRAINT [User_tb_role_df] DEFAULT 'user',
+    [role] VARCHAR(20),
     [userId] INT,
     [createdAt] DATETIME2 NOT NULL CONSTRAINT [User_tb_createdAt_df] DEFAULT CURRENT_TIMESTAMP,
     [updatedAt] DATETIME2 NOT NULL,
@@ -64,6 +64,8 @@ CREATE TABLE [dbo].[Banner] (
     [image] NVARCHAR(1000),
     [createdAt] DATETIME2 NOT NULL CONSTRAINT [Banner_createdAt_df] DEFAULT CURRENT_TIMESTAMP,
     [updatedAt] DATETIME2 NOT NULL,
+    [endDate] DATETIME2 NOT NULL,
+    [startDate] DATETIME2 NOT NULL,
     CONSTRAINT [Banner_pkey] PRIMARY KEY CLUSTERED ([id])
 );
 
@@ -79,6 +81,15 @@ CREATE TABLE [dbo].[Job_entry] (
     [updatedAt] DATETIME2 NOT NULL,
     CONSTRAINT [Job_entry_pkey] PRIMARY KEY CLUSTERED ([id]),
     CONSTRAINT [Job_entry_controlNumber_key] UNIQUE NONCLUSTERED ([controlNumber])
+);
+
+-- CreateTable
+CREATE TABLE [dbo].[User_Table] (
+    [id] INT NOT NULL IDENTITY(1,1),
+    [firstName] NVARCHAR(255) NOT NULL,
+    [lastName] NVARCHAR(255) NOT NULL,
+    [isActive] BIT NOT NULL CONSTRAINT [DF_40126993ef359aab43c2e8e4e4e] DEFAULT 1,
+    CONSTRAINT [PK_bf2e74ff2666a76f5a6c6409355] PRIMARY KEY CLUSTERED ([id])
 );
 
 -- AddForeignKey
